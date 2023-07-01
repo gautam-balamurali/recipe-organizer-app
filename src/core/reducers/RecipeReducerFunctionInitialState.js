@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 export const recipeReducerInitialState = {
-  recipeData: [],
+  recipeData: JSON.parse(localStorage.getItem("recipes")) ?? [],
   searchInput: "",
   radioButtonValue: "name",
 };
