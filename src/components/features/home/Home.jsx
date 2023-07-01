@@ -186,6 +186,17 @@ const Home = () => {
             onSubmit={submitClickHandler}
             autoComplete="off"
           >
+            <label htmlFor="image">Image Link:</label>
+            <input
+              type="text"
+              id="image"
+              name={"image"}
+              value={currentRecipeFormFields.image}
+              placeholder="Image Link"
+              onChange={currentRecipeFormFieldsChangeHandler}
+              required
+            />
+
             <label htmlFor="name">Name:</label>
             <input
               type="text"
