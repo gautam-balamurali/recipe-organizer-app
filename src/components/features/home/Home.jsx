@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 import { useRecipe } from "../../../core/contexts/RecipeContext";
 import "./Home.css";
 import CustomModal from "../../shared/custom-modal-component/CustomModal";
-import { FaPlus } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -162,13 +162,13 @@ const Home = () => {
                   className="recipe-action-btn"
                   onClick={() => editButtonClickHandler(recipe.id)}
                 >
-                  Update/Details
+                  <FaEdit size={20} />
                 </button>
                 <button
                   className="recipe-action-btn"
                   onClick={() => deleteRecipe(recipe.id)}
                 >
-                  Remove
+                  <FaTrash size={20} />
                 </button>
               </div>
             </div>
