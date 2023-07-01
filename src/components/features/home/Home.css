@@ -1,0 +1,139 @@
+.recipe-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.search-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.search-container input {
+  padding: 0.5rem;
+  font-family: "Shantell Sans", cursive;
+  width: 100%;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.radio-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-buttons label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+h2 {
+  display: flex;
+  align-self: flex-start;
+  letter-spacing: 0.2em;
+  text-transform: capitalize;
+}
+
+.recipes-container-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.recipes-container-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.recipe-card {
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 20rem;
+  max-height: 18rem;
+  font-size: larger;
+  font-weight: bolder;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.recipe-card h4,
+p {
+  letter-spacing: 0.1em;
+}
+
+.recipe-card p {
+  color: var(--medium-shade-color);
+  font-size: 0.9rem;
+}
+
+.recipe-image {
+  height: 12rem;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.recipe-configuration-btns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.recipe-action-btn {
+  background-color: transparent;
+  border: none;
+  color: #2874f0;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.5rem;
+}
+
+.form-heading {
+  align-self: center;
+  padding: 1rem;
+}
+
+.recipe-add-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  max-width: 16rem;
+}
+
+.recipe-add-form input {
+  padding: 0.3rem;
+  font-family: "Shantell Sans", cursive;
+  width: 90%;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-btn-submit {
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .recipe-card:hover {
+    background-color: var(--primary-color);
+  }
+}
