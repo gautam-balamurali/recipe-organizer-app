@@ -9,7 +9,7 @@ export const recipes = [
     ingredients: [
       "200g spaghetti",
       "150g pancetta",
-      "2 cloves garlic, minced",
+      "2 cloves garlic minced",
       "2 large eggs",
       "50g grated Parmesan cheese",
       "Salt and pepper to taste",

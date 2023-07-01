@@ -7,6 +7,7 @@ import { useRecipe } from "../../../core/contexts/RecipeContext";
 import "./Home.css";
 import CustomModal from "../../shared/custom-modal-component/CustomModal";
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { recipeData, addNewRecipe, updateRecipeDetails, deleteRecipe } =
@@ -69,79 +70,93 @@ const Home = () => {
     handleCloseModal();
   };
 
+  const navigate = useNavigate();
+
   return (
-    <div
-      className={`${
-        recipeData.length > 0
-          ? "recipes-container-flex"
-          : "recipes-container-column"
-      }`}
-    >
-      {recipeData.length > 0 &&
-        recipeData.map((recipe, index) => (
-          <div className="recipe-card" key={recipe.id}>
-            <img
-              className="recipe-image"
-              src={recipe.image + (index + 1)}
-              alt={recipe.name}
-            />
-            <h4>{recipe.name}</h4>
-            <div className="recipe-configuration-btns">
-              <button
-                className="recipe-action-btn"
-                onClick={() => editButtonClickHandler(recipe.id)}
+    <>
+      <h2>{recipeData.length > 0 ? "All Recipes:" : "Add some Recipes"}</h2>
+      <div
+        className={`${
+          recipeData.length > 0
+            ? "recipes-container-flex"
+            : "recipes-container-column"
+        }`}
+      >
+        {recipeData.length > 0 &&
+          recipeData.map((recipe, index) => (
+            <div className="recipe-card" key={recipe.id}>
+              <img
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/recipe/${recipe?.id}`)}
+                className="recipe-image"
+                src={recipe.image + (index + 1)}
+                alt={recipe.name}
+              />
+              <h4
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/recipe/${recipe?.id}`)}
               >
-                Update/Details
-              </button>
-              <button
-                className="recipe-action-btn"
-                onClick={() => deleteRecipe(recipe.id)}
-              >
-                Remove
-              </button>
+                {recipe.name}
+              </h4>
+              <p>{recipe.cuisine}</p>
+              <div className="recipe-configuration-btns">
+                <button
+                  className="recipe-action-btn"
+                  onClick={() => editButtonClickHandler(recipe.id)}
+                >
+                  Update/Details
+                </button>
+                <button
+                  className="recipe-action-btn"
+                  onClick={() => deleteRecipe(recipe.id)}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
-      <button onClick={handleOpenModal} className="recipe-card">
-        <FaPlus /> Create Recipe
-      </button>
-      {recipeData.length < 1 && <h2>Add some recipes.</h2>}
+          ))}
+        <button onClick={handleOpenModal} className="recipe-card">
+          <FaPlus /> Create Recipe
+        </button>
 
-      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <h2>{isEditFormEnabled ? "Edit Recipe" : "Add a New Recipe"}</h2>
-        <form
-          className="recipes-container-column"
-          onSubmit={submitClickHandler}
-          autoComplete="off"
-        >
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name={"name"}
-            value={currentRecipeFormFields.name}
-            placeholder="Dal Chawal"
-            onChange={currentRecipeFormFieldsChangeHandler}
-            required
-          />
+        <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <h2 className="form-heading">
+            {isEditFormEnabled ? "Edit Recipe" : "Add a New Recipe"}
+          </h2>
+          <form
+            className="recipe-add-form"
+            onSubmit={submitClickHandler}
+            autoComplete="off"
+          >
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name={"name"}
+              value={currentRecipeFormFields.name}
+              placeholder="Dal Chawal"
+              onChange={currentRecipeFormFieldsChangeHandler}
+              required
+            />
 
-          <label htmlFor="cuisine">Cuisine:</label>
-          <input
-            type="text"
-            id="cuisine"
-            name={"cuisine"}
-            value={currentRecipeFormFields.cuisine}
-            placeholder="Indian"
-            onChange={currentRecipeFormFieldsChangeHandler}
-            required
-          />
+            <label htmlFor="cuisine">Cuisine:</label>
+            <input
+              type="text"
+              id="cuisine"
+              name={"cuisine"}
+              value={currentRecipeFormFields.cuisine}
+              placeholder="Indian"
+              onChange={currentRecipeFormFieldsChangeHandler}
+              required
+            />
 
-          <button type="submit" className="form-btn-submit">
-            {isEditFormEnabled ? "Update" : "Save"}
-          </button>
-        </form>
-      </CustomModal>
-    </div>
+            <button type="submit" className="form-btn-submit">
+              {isEditFormEnabled ? "Update" : "Save"}
+            </button>
+          </form>
+        </CustomModal>
+      </div>
+    </>
   );
 };
 

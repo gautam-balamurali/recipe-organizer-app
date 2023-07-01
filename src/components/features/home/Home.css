@@ -1,3 +1,8 @@
+h2 {
+  letter-spacing: 0.2em;
+  text-transform: capitalize;
+}
+
 .recipes-container-flex {
   display: flex;
   flex-wrap: wrap;
@@ -27,6 +32,16 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
+.recipe-card h4,
+p {
+  letter-spacing: 0.1em;
+}
+
+.recipe-card p {
+  color: var(--medium-shade-color);
+  font-size: 0.9rem;
+}
+
 .recipe-image {
   height: 12rem;
   width: 100%;
@@ -49,6 +64,27 @@
   padding: 0.5rem;
 }
 
+.form-heading {
+  align-self: center;
+  padding: 1rem;
+}
+
+.recipe-add-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  max-width: 16rem;
+}
+
+.recipe-add-form input {
+  padding: 0.3rem;
+  font-family: "Shantell Sans", cursive;
+  width: 90%;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
 .form-btn-submit {
   border-radius: 5px;
   padding: 8px 16px;
@@ -60,9 +96,6 @@
 
 @media (min-width: 1024px) {
   .recipe-card:hover {
-    background-color: #fde047;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    background-color: var(--primary-color);
   }
 }
