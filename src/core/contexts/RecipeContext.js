@@ -16,8 +16,20 @@ export const RecipeProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    dispatch({ type: "FETCH_RECIPE_DATA", payload: recipes });
+    const storedRecipes = JSON.parse(localStorage.getItem("recipes"));
+    if (storedRecipes?.length > 0) {
+      dispatch({
+        type: "FETCH_RECIPE_DATA",
+        payload: storedRecipes,
+      });
+    } else {
+      dispatch({ type: "FETCH_RECIPE_DATA", payload: recipes });
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("recipes", JSON.stringify(state.recipeData));
+  }, [state.recipeData]);
 
   const addNewRecipe = (recipe) => {
     dispatch({ type: "ADD_NEW_RECIPE", payload: recipe });
