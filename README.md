@@ -1,4 +1,17 @@
-# Getting Started with Create React App
+# 🍣Recipe Organizer🍣
+
+- A recipe organizer app in which we can add, search, delete and update recipes
+
+## Tech Stack
+
+- React
+- Netlify
+
+## Preview
+
+- [View Live](https://recipe-organizer-gautam-balamurali.netlify.app/)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

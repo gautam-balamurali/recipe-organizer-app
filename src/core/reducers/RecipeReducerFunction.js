@@ -4,7 +4,7 @@ export const recipeReducer = (state, action) => {
     case "FETCH_RECIPE_DATA":
       return { ...state, recipeData: [...payload] };
     case "ADD_NEW_RECIPE":
-      return { ...state, recipeData: [...state.recipeData, payload] };
+      return { ...state, recipeData: [payload, ...state.recipeData] };
     case "UPDATE_RECIPE_DETAILS":
       return { ...state, recipeData: [...payload] };
     default:

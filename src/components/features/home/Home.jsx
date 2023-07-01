@@ -12,6 +12,26 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const { recipeData, addNewRecipe, updateRecipeDetails, deleteRecipe } =
     useRecipe();
+  const navigate = useNavigate();
+
+  const [searchCategory, setSearchCategory] = useState("name");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchCategoryChange = (event) => {
+    setSearchCategory(event.target.value);
+  };
+
+  const handleSearchQueryChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const searchRecipes = () => {
+    const filteredRecipes = recipeData.filter((recipe) => {
+      const value = recipe[searchCategory].toLowerCase();
+      return value.includes(searchQuery.toLowerCase());
+    });
+    return filteredRecipes;
+  };
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [isEditFormEnabled, setEditFormEnabled] = useState(false);
@@ -44,13 +64,14 @@ const Home = () => {
 
   const currentRecipeFormFieldsChangeHandler = (event) => {
     const { name, value } = event.target;
-    if (name !== "ingredients" && name !== "instructions")
+    if (name !== "ingredients" && name !== "instructions") {
       setCurrentRecipeFormFields((prev) => ({ ...prev, [name]: value }));
-    else
+    } else {
       setCurrentRecipeFormFields((prev) => ({
         ...prev,
-        [name]: [...prev[name], value],
+        [name]: value.split(",").map((item) => item.trim()),
       }));
+    }
   };
 
   const editButtonClickHandler = (habitId) => {
@@ -70,20 +91,57 @@ const Home = () => {
     handleCloseModal();
   };
 
-  const navigate = useNavigate();
-
   return (
-    <>
-      <h2>{recipeData.length > 0 ? "All Recipes:" : "Add some Recipes"}</h2>
+    <div className="recipe-main-container">
+      <h2>
+        {searchRecipes().length > 0 ? "All Recipes:" : "Add some Recipes"}
+      </h2>
+      <div className="search-container">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+          placeholder="Search..."
+        />
+        <div className="radio-buttons">
+          <label>
+            <input
+              type="radio"
+              value="name"
+              checked={searchCategory === "name"}
+              onChange={handleSearchCategoryChange}
+            />
+            Name
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="ingredients"
+              checked={searchCategory === "ingredients"}
+              onChange={handleSearchCategoryChange}
+            />
+            Ingredients
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="cuisine"
+              checked={searchCategory === "cuisine"}
+              onChange={handleSearchCategoryChange}
+            />
+            Cuisine
+          </label>
+        </div>
+      </div>
       <div
         className={`${
-          recipeData.length > 0
+          searchRecipes().length > 0
             ? "recipes-container-flex"
             : "recipes-container-column"
         }`}
       >
-        {recipeData.length > 0 &&
-          recipeData.map((recipe, index) => (
+        {searchRecipes().length > 0 &&
+          searchRecipes().map((recipe, index) => (
             <div className="recipe-card" key={recipe.id}>
               <img
                 style={{ cursor: "pointer" }}
@@ -150,13 +208,67 @@ const Home = () => {
               required
             />
 
+            <label htmlFor="ingredients">Ingredients:</label>
+            <input
+              type="text"
+              id="ingredients"
+              name={"ingredients"}
+              value={currentRecipeFormFields.ingredients.join(", ")}
+              placeholder="Ingredient 1,Ingredient 2,..."
+              onChange={currentRecipeFormFieldsChangeHandler}
+              onKeyDown={(event) => {
+                if (event.key === " ") {
+                  event.preventDefault();
+                  const { selectionStart, selectionEnd } = event.target;
+                  const inputValue = event.target.value;
+                  const newValue =
+                    inputValue.slice(0, selectionStart) +
+                    " " +
+                    inputValue.slice(selectionEnd);
+                  setCurrentRecipeFormFields((prev) => ({
+                    ...prev,
+                    ingredients: newValue.split(",").map((item) => item.trim()),
+                  }));
+                }
+              }}
+              required
+            />
+
+            <label htmlFor="instructions">Instructions:</label>
+            <input
+              type="text"
+              id="instructions"
+              name={"instructions"}
+              value={currentRecipeFormFields.instructions.join(", ")}
+              placeholder="Instruction 1,Instruction 2,..."
+              onChange={currentRecipeFormFieldsChangeHandler}
+              onKeyDown={(event) => {
+                if (event.key === " ") {
+                  event.preventDefault();
+                  const { selectionStart, selectionEnd } = event.target;
+                  const inputValue = event.target.value;
+                  const newValue =
+                    inputValue.slice(0, selectionStart) +
+                    " " +
+                    inputValue.slice(selectionEnd);
+                  setCurrentRecipeFormFields((prev) => ({
+                    ...prev,
+                    instructions: newValue
+                      .split(",")
+                      .map((item) => item.trim()),
+                  }));
+                }
+              }}
+              required
+            />
+
             <button type="submit" className="form-btn-submit">
               {isEditFormEnabled ? "Update" : "Save"}
             </button>
           </form>
         </CustomModal>
       </div>
-    </>
+    </div>
   );
 };
 
