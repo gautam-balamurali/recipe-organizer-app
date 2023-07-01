@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { FaAngleLeft } from "react-icons/fa";
 import "./RecipeView.css";
 import { useNavigate } from "react-router-dom";

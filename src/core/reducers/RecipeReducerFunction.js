@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export const recipeReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {

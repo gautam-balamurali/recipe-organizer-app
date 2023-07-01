@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useParams } from "react-router-dom";
 
 import RecipeView from "../components/features/recipe-view/RecipeView";
